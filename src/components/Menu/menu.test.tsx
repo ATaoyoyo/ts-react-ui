@@ -1,5 +1,10 @@
 import React from 'react'
-import {cleanup, fireEvent, render, RenderResult} from '@testing-library/react'
+import {
+  cleanup,
+  fireEvent,
+  render,
+  RenderResult,
+} from '@testing-library/react'
 
 import Menu, { MenuMode } from './menu'
 import MenuItem from './menuItem'
@@ -18,11 +23,9 @@ const testVerProps: MenuMode = {
 const generateMenu = (props: MenuMode) => {
   return (
     <Menu {...props}>
-      <MenuItem index={0}>Active</MenuItem>
-      <MenuItem index={1} disabled>
-        disabled
-      </MenuItem>
-      <MenuItem index={2}>Lorem</MenuItem>
+      <MenuItem>Active</MenuItem>
+      <MenuItem disabled>disabled</MenuItem>
+      <MenuItem>Lorem</MenuItem>
     </Menu>
   )
 }
