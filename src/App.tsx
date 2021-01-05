@@ -2,22 +2,32 @@ import React from 'react'
 import Button, { ButtonSize, ButtonType } from './components/Button/button'
 import Menu from './components/Menu/menu'
 import MenuItem from './components/Menu/menuItem'
+import SubMenu from './components/Menu/subMenu'
 
 function App() {
   return (
     <div className="App">
-      <Menu defaultIndex={0} onSelect={(index) => alert(index)}>
-        <MenuItem index={0}>Lorem</MenuItem>
-        <MenuItem index={1} disabled>Lorem</MenuItem>
-        <MenuItem index={2}>Lorem</MenuItem>
-        <MenuItem index={3}>Lorem</MenuItem>
+      <Menu defaultIndex={'0'}  onSelect={(index) => alert(index)}>
+        <MenuItem>Lorem</MenuItem>
+        <MenuItem disabled>Lorem</MenuItem>
+        <SubMenu title="dropDown">
+          <MenuItem>Lorem</MenuItem>
+          <MenuItem>Lorem</MenuItem>
+        </SubMenu>
       </Menu>
 
-      <Menu mode={"vertical"} defaultIndex={0} onSelect={(index) => alert(index)}>
-        <MenuItem index={0}>Lorem</MenuItem>
-        <MenuItem index={1} disabled>Lorem</MenuItem>
-        <MenuItem index={2}>Lorem</MenuItem>
-        <MenuItem index={3}>Lorem</MenuItem>
+      <Menu
+        mode={'vertical'}
+        defaultIndex={'0'}
+        defaultOpenSubMenu={['2']}
+        onSelect={(index) => alert(index)}
+      >
+        <MenuItem>Lorem</MenuItem>
+        <MenuItem disabled>Lorem</MenuItem>
+        <SubMenu title="dropDown">
+          <MenuItem>Lorem</MenuItem>
+          <MenuItem>Lorem</MenuItem>
+        </SubMenu>
       </Menu>
 
       <Button autoFocus>Default</Button>

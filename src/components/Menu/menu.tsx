@@ -3,33 +3,45 @@ import classNames from 'classnames'
 import { MenuItemProps } from './menuItem'
 
 type Mode = 'horizontal' | 'vertical'
-type selectCallback = (selectedIndex: number) => void
+type selectCallback = (selectedIndex: string) => void
 
 export interface MenuMode {
-  defaultIndex?: number
+  defaultIndex?: string
   className?: string
   mode?: Mode
   style?: React.CSSProperties
   onSelect?: selectCallback
+  defaultOpenSubMenu?: string[]
 }
 
 interface IMenuContext {
-  index: number
+  index: string
   onSelect?: selectCallback
+  mode?: Mode
+  defaultOpenSubMenu?: string[]
 }
 
-export const MenuContext = createContext<IMenuContext>({ index: 0 })
+export const MenuContext = createContext<IMenuContext>({ index: '0' })
 
 const Menu: React.FC<MenuMode> = (props) => {
-  const { defaultIndex, className, mode, style, onSelect, children } = props
+  const {
+    defaultIndex,
+    className,
+    mode,
+    style,
+    onSelect,
+    defaultOpenSubMenu,
+    children,
+  } = props
 
   const [currentActive, setActive] = useState(defaultIndex)
 
-  const classes = classNames('menu', className, {
+  const classes = classNames('viking-menu', className, {
     'menu-vertical': mode === 'vertical',
+    'menu-horizontal': mode === 'horizontal',
   })
 
-  const handleClick = (index: number) => {
+  const handleClick = (index: string) => {
     setActive(index)
     if (onSelect) {
       onSelect(index)
@@ -37,16 +49,18 @@ const Menu: React.FC<MenuMode> = (props) => {
   }
 
   const passedContext: IMenuContext = {
-    index: currentActive ? currentActive : 0,
+    index: currentActive ? currentActive : '0',
     onSelect: handleClick,
+    mode,
+    defaultOpenSubMenu,
   }
 
   const renderChildren = () => {
     return React.Children.map(children, (child, index) => {
       const childElement = child as React.FunctionComponentElement<MenuItemProps>
       const { displayName } = childElement.type
-      if (displayName === 'menu-item') {
-        return React.cloneElement(childElement, { index })
+      if (displayName === 'menu-item' || 'SubMenu') {
+        return React.cloneElement(childElement, { index: index.toString() })
       } else {
         console.error(
           'Warning: Menu has child which is not a MenuItem component.'
@@ -66,7 +80,8 @@ const Menu: React.FC<MenuMode> = (props) => {
 
 Menu.defaultProps = {
   mode: 'horizontal',
-  defaultIndex: 0,
+  defaultIndex: '0',
+  defaultOpenSubMenu: [],
 }
 
 export default Menu
