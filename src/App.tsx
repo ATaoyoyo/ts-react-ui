@@ -1,4 +1,6 @@
 import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import Button, { ButtonSize, ButtonType } from './components/Button/button'
 import Menu from './components/Menu/menu'
 import MenuItem from './components/Menu/menuItem'
@@ -7,7 +9,8 @@ import SubMenu from './components/Menu/subMenu'
 function App() {
   return (
     <div className="App">
-      <Menu defaultIndex={'0'}  onSelect={(index) => alert(index)}>
+      <FontAwesomeIcon icon={faCoffee} />
+      <Menu defaultIndex={'0'} onSelect={(index) => alert(index)}>
         <MenuItem>Lorem</MenuItem>
         <MenuItem disabled>Lorem</MenuItem>
         <SubMenu title="dropDown">
